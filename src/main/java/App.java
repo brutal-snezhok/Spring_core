@@ -1,14 +1,25 @@
 public class App {
     private Client client;
-    private ConsoleEventLogger eventLogger;
+    private EventLogger eventLogger;
 
+    public App(Client client, EventLogger eventLogger) {
+        this.client = client;
+        this.eventLogger = eventLogger;
+    }
+
+    public App() {
+
+    }
 
     public static void main(String[] args) {
-        App app = new App();
-        app.client = new Client("1", "Dmitry Tsyrulik");
-        app.eventLogger = new ConsoleEventLogger();
-
+        Client client = new Client("1", "Dmitry Tsyrulik");
+        EventLogger eventLogger = new ConsoleEventLogger();
+        App app = new App(client, eventLogger);
         app.logEvent("Some event for user 1");
+//        app.client = new Client("1", "Dmitry Tsyrulik");
+//        app.eventLogger = new ConsoleEventLogger();
+//
+//        app.logEvent("Some event for user 1");
 
     }
 
