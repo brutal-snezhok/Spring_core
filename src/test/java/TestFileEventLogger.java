@@ -13,9 +13,11 @@ import java.util.Date;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+
 public class TestFileEventLogger {
 
     private File file;
+
     @Before
     public void createFile() throws IOException {
         this.file = File.createTempFile("test", "FileEventLogger");
@@ -25,18 +27,20 @@ public class TestFileEventLogger {
     public void removeFile() {
         file.delete();
     }
+
     @Test
-    public void testInit() {
+    public void testInit() throws IOException {
         FileEventLogger logger = new FileEventLogger(file.getAbsolutePath());
         logger.init();
     }
 
     @Test(expected=IllegalArgumentException.class)
-    public void testInitFail() {
+    public void testInitFail() throws IOException {
         file.setReadOnly();
         FileEventLogger logger = new FileEventLogger(file.getAbsolutePath());
         logger.init();
     }
+
     @Test
     public void testLogEvent() throws IOException {
         Event event = new Event(new Date(), DateFormat.getDateInstance());
@@ -51,4 +55,5 @@ public class TestFileEventLogger {
         contents = FileUtils.readFileToString(this.file);
         assertFalse(contents.isEmpty());
     }
+
 }
