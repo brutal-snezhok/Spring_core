@@ -5,31 +5,7 @@
  		http://www.springframework.org/schema/beans
  		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
-    <bean id="client" class="beans.Client">
-        <constructor-arg value="1"/>
-        <constructor-arg value="Dmitry Tsyrulik"/>
-    </bean>
+    <import resource="loggers.xml"/>
+    <import resource="other.xml"/>
 
-    <bean id="consoleEventLogger" class="logger.impl.ConsoleEventLogger"/>
-    <bean id="fileEventLogger" class="logger.impl.FileEventLogger" init-method="init">
-        <constructor-arg value="target/events_log.txt"/>
-    </bean>
-    <bean id="cacheFileEventLogger" class="logger.impl.CacheFileEventLogger" destroy-method="destroy">
-        <constructor-arg value="target/events_log.txt"/>
-        <constructor-arg value="5"/>
-    </bean>
-
-    <bean id="event" class="beans.Event" scope="prototype">
-        <constructor-arg>
-            <bean class="java.util.Date"/>
-        </constructor-arg>
-        <constructor-arg ref="dateFormat"/>
-    </bean>
-
-    <bean id="app" class="App">
-        <constructor-arg ref="client"/>
-        <constructor-arg ref="consoleEventLogger"/>
-    </bean>
-
-    <bean id="dateFormat" class="java.text.DateFormat" factory-method="getDateTimeInstance"/>
 </beans>
