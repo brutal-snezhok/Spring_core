@@ -1,3 +1,5 @@
+package beans;
+
 import java.util.Objects;
 
 public class Client {
@@ -45,7 +47,7 @@ public class Client {
 
     @Override
     public String toString() {
-        return "Client{" +
+        return "beans.Client{" +
                 "id='" + id + '\'' +
                 ", fullName='" + fullName + '\'' +
                 '}';

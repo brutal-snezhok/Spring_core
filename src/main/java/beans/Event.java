@@ -1,3 +1,5 @@
+package beans;
+
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -38,6 +40,6 @@ public class Event {
 
     @Override
     public String toString() {
-        return "Event [id=" + id + ", msg=" + msg + ", date=" + df.format(date) + "]";
+        return "beans.Event [id=" + id + ", msg=" + msg + ", date=" + df.format(date) + "]";
     }
 }

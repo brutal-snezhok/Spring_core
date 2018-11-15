@@ -1,3 +1,6 @@
+import beans.Client;
+import beans.Event;
+import logger.EventLogger;
 import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
