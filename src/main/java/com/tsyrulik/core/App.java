@@ -1,9 +1,11 @@
 package com.tsyrulik.core;
 
+import com.tsyrulik.core.aspects.StatisticsAspect;
 import com.tsyrulik.core.beans.Client;
 import com.tsyrulik.core.beans.Event;
 import com.tsyrulik.core.beans.EventType;
 import com.tsyrulik.core.logger.EventLogger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,9 @@ public class App {
 
 
     private Client client;
+
+    @Autowired
+    private StatisticsAspect statisticsAspect;
 
     @Value("#{ T(com.tsyrulik.core.beans.Event).isDay(8,17) ? "
             + "cacheFileEventLogger : consoleEventLogger }")
@@ -55,14 +60,30 @@ public class App {
 
         Event event = ctx.getBean(Event.class);
         app.logEvent(EventType.INFO, event, "Some event for 1");
+        event = ctx.getBean(Event.class);
+        app.logEvent(EventType.INFO, event, "One more event for 1");
+
+        event = ctx.getBean(Event.class);
+        app.logEvent(EventType.INFO, event, "And one more event for 1");
+
 
         event = ctx.getBean(Event.class);
         app.logEvent(EventType.ERROR, event, "Some event for 2");
 
         event = ctx.getBean(Event.class);
         app.logEvent(null, event, "Some event for 3");
+        app.outputLoggingCounter();
 
         ctx.close();
+    }
+
+    private void outputLoggingCounter() {
+        if (statisticsAspect != null) {
+            System.out.println("Loggers statistics. Number of calls: ");
+            for (Map.Entry<Class<?>, Integer> entry: statisticsAspect.getCounter().entrySet()) {
+                System.out.println("    " + entry.getKey().getSimpleName() + ": " + entry.getValue());
+            }
+        }
     }
 
 

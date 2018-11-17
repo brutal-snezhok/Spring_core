@@ -26,7 +26,7 @@ public class CombinedEventLogger extends AbstractLogger {
         return Collections.unmodifiableCollection(loggers);
     }
 
-    @Value("#{'Combined ' + combinedEventLogger.loggers.![name].toString()}")
+    @Value("#{'Combined ' + combinedLoggers.![name].toString()}")
     @Override
     protected void setName(String name) {
         this.name = name;

@@ -1,3 +1,5 @@
+package logger;
+
 import com.tsyrulik.core.beans.Event;
 import com.tsyrulik.core.logger.impl.ConsoleEventLogger;
 import org.junit.After;
