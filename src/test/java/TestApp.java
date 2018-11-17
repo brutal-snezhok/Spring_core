@@ -3,6 +3,7 @@ import com.tsyrulik.core.beans.Client;
 import com.tsyrulik.core.beans.Event;
 import com.tsyrulik.core.beans.EventType;
 import com.tsyrulik.core.logger.EventLogger;
+import com.tsyrulik.core.logger.impl.AbstractLogger;
 import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
@@ -84,7 +85,7 @@ public class TestApp {
         method.invoke(app, type, event, message);
     }
 
-    private class DummyLogger implements EventLogger {
+    private class DummyLogger extends AbstractLogger {
 
         private Event event;
 
@@ -99,6 +100,11 @@ public class TestApp {
 
         public void setEvent(Event event) {
             this.event = event;
+        }
+
+        @Override
+        protected void setName(String name) {
+            this.name = name;
         }
 
     };

@@ -28,8 +28,6 @@ public class LoggerConfig {
     @Resource(name = "combinedEventLogger")
     private EventLogger combinedEventLogger;
 
-    @Resource(name = "cacheFileEventLogger")
-    private EventLogger cacheEventLogger;
     @Bean
     public Collection<EventLogger> combinedLoggers() {
         Collection<EventLogger> loggers = new ArrayList<EventLogger>(2);
@@ -45,8 +43,5 @@ public class LoggerConfig {
         return map;
     }
 
-    @Bean
-    public EventLogger defaultLogger() {
-        return cacheEventLogger;
-    }
+
 }

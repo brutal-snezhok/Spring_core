@@ -4,6 +4,7 @@ import com.tsyrulik.core.beans.Client;
 import com.tsyrulik.core.beans.Event;
 import com.tsyrulik.core.beans.EventType;
 import com.tsyrulik.core.logger.EventLogger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +18,18 @@ public class App {
 
     private Client client;
 
-    @Resource(name = "defaultLogger")
+    @Value("#{ T(com.tsyrulik.core.beans.Event).isDay(8,17) ? "
+            + "cacheFileEventLogger : consoleEventLogger }")
     private EventLogger defaultLogger;
 
     @Resource(name = "loggerMap")
     private Map<EventType, EventLogger> loggers;
+
+    @Value("#{'Hello user ' + "
+            + "( systemProperties['os.name'].contains('Windows') ? "
+            + "systemEnvironment['USERNAME'] : systemEnvironment['USER'] ) + "
+            + "'. Default logger is ' + app.defaultLogger.name }")
+    private String startupMessage;
 
     public App() {}
 
@@ -31,11 +39,16 @@ public class App {
         this.loggers = loggersMap;
     }
 
+    public EventLogger getDefaultLogger() {
+        return defaultLogger;
+    }
+
     public static void main(String[] args) {
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
         ctx.scan("com.tsyrulik.core");
         ctx.refresh();
         App app = (App) ctx.getBean("app");
+        System.out.println(app.startupMessage);
 
         Client client = ctx.getBean(Client.class);
         System.out.println("Client says: " + client.getGreeting());

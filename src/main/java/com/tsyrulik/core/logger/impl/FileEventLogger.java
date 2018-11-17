@@ -1,7 +1,6 @@
 package com.tsyrulik.core.logger.impl;
 
 import com.tsyrulik.core.beans.Event;
-import com.tsyrulik.core.logger.EventLogger;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -11,7 +10,7 @@ import java.io.File;
 import java.io.IOException;
 
 @Component
-public class FileEventLogger implements EventLogger {
+public class FileEventLogger extends AbstractLogger  {
 
     private File file;
 
@@ -39,5 +38,11 @@ public class FileEventLogger implements EventLogger {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Value("File logger")
+    @Override
+    protected void setName(String name) {
+        this.name = name;
     }
 }
