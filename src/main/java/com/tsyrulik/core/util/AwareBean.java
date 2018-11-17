@@ -1,4 +1,4 @@
-package util;
+package com.tsyrulik.core.util;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanNameAware;
@@ -6,12 +6,17 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
+import org.springframework.stereotype.Component;
 
-public class AwareBean implements ApplicationContextAware, BeanNameAware,
-        ApplicationEventPublisherAware {
+import javax.annotation.PostConstruct;
+
+@Component
+public class AwareBean implements ApplicationContextAware, BeanNameAware, ApplicationEventPublisherAware {
     private ApplicationEventPublisher eventPublisher;
     private String name;
     private ApplicationContext ctx;
+
+    @PostConstruct
     public void init() {
         System.out.println(this.getClass().getSimpleName() + " > My name is '"
                 + name + "'");

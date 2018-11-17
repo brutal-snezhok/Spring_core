@@ -1,5 +1,5 @@
-import beans.Event;
-import logger.impl.ConsoleEventLogger;
+import com.tsyrulik.core.beans.Event;
+import com.tsyrulik.core.logger.impl.ConsoleEventLogger;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

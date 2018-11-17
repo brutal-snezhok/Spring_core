@@ -1,5 +1,5 @@
-import beans.Event;
-import logger.impl.FileEventLogger;
+import com.tsyrulik.core.beans.Event;
+import com.tsyrulik.core.logger.impl.FileEventLogger;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Before;

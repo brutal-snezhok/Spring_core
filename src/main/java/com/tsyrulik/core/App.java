@@ -1,23 +1,40 @@
-import beans.Client;
-import beans.Event;
-import beans.EventType;
-import logger.EventLogger;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+package com.tsyrulik.core;
 
+import com.tsyrulik.core.beans.Client;
+import com.tsyrulik.core.beans.Event;
+import com.tsyrulik.core.beans.EventType;
+import com.tsyrulik.core.logger.EventLogger;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 import java.util.Map;
 
 
+@Service
 public class App {
+
 
     private Client client;
 
+    @Resource(name = "defaultLogger")
     private EventLogger defaultLogger;
 
+    @Resource(name = "loggerMap")
     private Map<EventType, EventLogger> loggers;
 
+    public App() {}
+
+    public App(Client client, EventLogger defaultLogger, Map<EventType, EventLogger> loggersMap) {
+        this.client = client;
+        this.defaultLogger = defaultLogger;
+        this.loggers = loggersMap;
+    }
+
     public static void main(String[] args) {
-        ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
+        ctx.scan("com.tsyrulik.core");
+        ctx.refresh();
         App app = (App) ctx.getBean("app");
 
         Client client = ctx.getBean(Client.class);
@@ -35,12 +52,6 @@ public class App {
         ctx.close();
     }
 
-    public App(Client client, EventLogger eventLogger, Map<EventType, EventLogger> loggers) {
-        super();
-        this.client = client;
-        this.defaultLogger = eventLogger;
-        this.loggers = loggers;
-    }
 
     private void logEvent(EventType eventType, Event event, String msg) {
         String message = msg.replaceAll(client.getId(), client.getFullName());

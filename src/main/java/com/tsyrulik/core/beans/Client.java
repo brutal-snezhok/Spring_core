@@ -1,4 +1,5 @@
-package beans;
+package com.tsyrulik.core.beans;
+
 
 public class Client {
 
@@ -8,11 +9,6 @@ public class Client {
 
     private String greeting;
 
-    public Client(String id, String fullName) {
-        super();
-        this.id = id;
-        this.fullName = fullName;
-    }
 
     public String getId() {
         return id;

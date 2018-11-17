@@ -1,7 +1,8 @@
-import beans.Client;
-import beans.Event;
-import beans.EventType;
-import logger.EventLogger;
+import com.tsyrulik.core.App;
+import com.tsyrulik.core.beans.Client;
+import com.tsyrulik.core.beans.Event;
+import com.tsyrulik.core.beans.EventType;
+import com.tsyrulik.core.logger.EventLogger;
 import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
@@ -18,9 +19,16 @@ public class TestApp {
 
     private static final String MSG = "Hello";
 
+    private Client createClient() {
+        Client client = new Client();
+        client.setId("25");
+        client.setFullName("Bob");
+        return client;
+    }
+
     @Test
     public void testClientNameSubstitution() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-        Client client = new Client("25", "Bob");
+        Client client = createClient();
         DummyLogger dummyLogger = new DummyLogger();
 
         App app = new App(client, dummyLogger, Collections.emptyMap());
@@ -36,9 +44,10 @@ public class TestApp {
         assertFalse(dummyLogger.getEvent().getMsg().contains(client.getFullName()));
     }
 
+
     @Test
     public void testCorrectLoggerCall() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        Client client = new Client("25", "Bob");
+        Client client = createClient();
         DummyLogger defaultLogger = new DummyLogger();
         DummyLogger infoLogger = new DummyLogger();
 
