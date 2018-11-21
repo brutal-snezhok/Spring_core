@@ -26,6 +26,7 @@
         <commons-io.version>2.4</commons-io.version>
         <mockito.version>2.2.12</mockito.version>
         <aspectj.version>1.8.9</aspectj.version>
+        <derby.version>10.13.1.1</derby.version>
     </properties>
 
     <dependencies>
@@ -77,6 +78,12 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>${commons-io.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+            <version>${derby.version}</version>
         </dependency>
     </dependencies>
 </project>

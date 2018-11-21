@@ -4,9 +4,10 @@ import com.tsyrulik.core.logger.EventLogger;
 import com.tsyrulik.core.logger.impl.CacheFileEventLogger;
 import com.tsyrulik.core.logger.impl.CombinedEventLogger;
 import com.tsyrulik.core.logger.impl.FileEventLogger;
-import com.tsyrulik.core.spring.AppConfig;
+import com.tsyrulik.core.spring.DBConfig;
 import com.tsyrulik.core.spring.LoggerConfig;
 import org.apache.commons.io.FileUtils;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -21,12 +22,18 @@ import static org.junit.Assert.assertTrue;
 
 public class TestContext {
 
+
+    @BeforeClass
+    public static void initTestDbProps() {
+        System.setProperty("DB_PROPS", "classpath:db_for_test.properties");
+    }
+
     @Test
     public void testPropertyPlaceholderSystemOverride() {
         System.setProperty("id", "35");
 
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
-        ctx.register(AppConfig.class);
+        ctx.register(LoggerConfig.class, DBConfig.class);
         ctx.refresh();
 
         Client client = ctx.getBean(Client.class);
@@ -52,7 +59,7 @@ public class TestContext {
         System.setProperty("events.file", file.getAbsolutePath());
 
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
-        ctx.register(LoggerConfig.class);
+        ctx.register(LoggerConfig.class, DBConfig.class);
         ctx.scan(FileEventLogger.class.getPackage().getName());
         ctx.refresh();
 

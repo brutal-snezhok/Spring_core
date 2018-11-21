@@ -30,6 +30,14 @@ public class StatisticsAspect {
         counter.put(clazz, counter.get(clazz) + 1);
     }
 
+    @AfterReturning("execution(* com.tsyrulik.core.App.logEvents(..))")
+    public void outputLoggingCounter() {
+        System.out.println("Loggers statistics. Number of calls: ");
+        for (Map.Entry<Class<?>, Integer> entry : counter.entrySet()) {
+            System.out.println("    " + entry.getKey().getSimpleName() + ": " + entry.getValue());
+        }
+    }
+
     public Map<Class<?>, Integer> getCounter() {
         return Collections.unmodifiableMap(counter);
     }
