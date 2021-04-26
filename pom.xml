@@ -23,7 +23,7 @@
     <properties>
         <spring.version>5.1.0.RELEASE</spring.version>
         <junit.version>4.12</junit.version>
-        <commons-io.version>2.4</commons-io.version>
+        <commons-io.version>2.7</commons-io.version>
         <mockito.version>2.2.12</mockito.version>
         <aspectj.version>1.8.9</aspectj.version>
         <derby.version>10.13.1.1</derby.version>
